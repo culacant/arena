@@ -1,0 +1,6 @@
+id,name     ,targettype,TP1  ,TP2,TP3,effect1,EP1
+1 ,HEALSELF ,0         ,0    ,0  ,0  ,2      ,10
+2 ,DMGSELF  ,0         ,0    ,0  ,0  ,1      ,10
+3 ,DMGAREA  ,1         ,10   ,0  ,0  ,1      ,10
+4 ,HEALAREA ,1         ,10   ,0  ,0  ,2      ,10
+5,DMGARC    ,2         ,10   ,180 ,0  ,1      ,10

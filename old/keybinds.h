@@ -1,0 +1,16 @@
+#include "raylib.h"
+
+enum KEYBINDS
+{
+  KEY_COMMAND_MOVE  = KEY_M,
+  KEY_COMMAND_FIRE  = KEY_F,
+  KEY_COMMAND_CLEAR = KEY_C,
+  KEY_FORWARD       = KEY_W,
+  KEY_BACKWARD      = KEY_S,
+  KEY_TURN_LEFT     = KEY_A,
+  KEY_TURN_RIGHT    = KEY_D,
+  KEY_ATTACK1       = KEY_ONE,
+  KEY_ATTACK2       = KEY_TWO,
+  KEY_ATTACK3       = KEY_THREE,
+  KEY_ATTACK4       = KEY_FOUR,
+};

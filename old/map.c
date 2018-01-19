@@ -1,4 +1,4 @@
-#include "ccrip.h"
+#include "arenathing.h"
 
 Tile *LoadMap(int *w, int *h)
 {
@@ -49,11 +49,15 @@ Tile *LoadMap(int *w, int *h)
 		i = fgetc(fp);
 	}
 	fclose(fp);
-
+	mapmodel = LoadModel("resources/map1.obj");
+	maptexture = LoadTexture("resources/tileset.png");
+	mapmodel.material.maps[MAP_DIFFUSE].texture = maptexture;
 	return map;
 }
 void DrawMap(Tile *map, int w, int h)
 {
+	DrawModel(mapmodel,(Vector3){0.5f,0.0f,-0.5f},1.0f,WHITE);
+	/*
 	int x, y;
 	Vector3 pos;
 	Color color;
@@ -61,6 +65,7 @@ void DrawMap(Tile *map, int w, int h)
 	{
 		for(x=0;x<w;x++)
 		{
+// draw
 			pos = (Vector3){x,0,y};
 			color;
 			switch(map[x+y*w].graphic)
@@ -75,5 +80,6 @@ void DrawMap(Tile *map, int w, int h)
 			DrawPlane(pos,(Vector2){1.0f,1.0f},color);
 		}
 	}
+	*/
 	return;
 }

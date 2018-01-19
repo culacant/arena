@@ -1,4 +1,4 @@
-#include "ccrip.h"
+#include "arenathing.h"
 #include <string.h>
 #include <math.h>
 
@@ -57,8 +57,10 @@ Node *CloseNode(Node *node)
 	return &closedset[closedsize-1];
 }
 
-int FindPath(Tile*map, int w, int h, int ox, int oy, int tx, int ty, Path *path)
+Path *FindPath(Tile*map, int w, int h, int ox, int oy, int tx, int ty)
 {
+	if(tx<0||ty<0||tx>=w||ty>=h)
+		return NULL;
 	closedsize = 0;
 	opensize = 0;
 	openset[opensize++] = (Node){tx,ty,abs(tx-ox)+abs(ty-oy),0,0};
@@ -67,29 +69,31 @@ int FindPath(Tile*map, int w, int h, int ox, int oy, int tx, int ty, Path *path)
 		Node *current = FindLowestF();
 		if(current->x == ox && current->y == oy)
 		{
-			// construct path
+			Path *path = NULL;
+			Path* looprev = NULL;
+// construct path
 			printf("found path\n");
-			Path* looprev = path;
 			current = current->prev;
+			path = malloc(sizeof(Path));
+			looprev = path;
 			while(current->x!=tx||current->y!=ty)
 			{
-				looprev->next = malloc(sizeof(Path));
-				looprev = looprev->next;
 				looprev->x = current->x;
 				looprev->y = current->y;
-				looprev->next = NULL;
+				looprev->next = malloc(sizeof(Path));
+				//Node *tmp = current;
 				current = current->prev;
+				//free(tmp);
+				looprev = looprev->next;
 			}
-			looprev->next = malloc(sizeof(Path));
-			looprev = looprev->next;
 			looprev->x = current->x;
 			looprev->y = current->y;
 			looprev->next = NULL;
 
-			return 1;
+			return path;
 		}
 		current = CloseNode(current);
-		for(int i=0;i<4;i++)
+		for(int i=0;i<8;i++)
 		{
 			Node neighbor = {current->x,current->y,0,0,0};
 			switch(i)
@@ -106,7 +110,24 @@ int FindPath(Tile*map, int w, int h, int ox, int oy, int tx, int ty, Path *path)
 				case 3:
 					neighbor.x--;
 					break;
+				case 4:
+					neighbor.x--;
+					neighbor.y--;
+					break;
+				case 5:
+					neighbor.x++;
+					neighbor.y++;
+					break;
+				case 6:
+					neighbor.x--;
+					neighbor.y++;
+					break;
+				case 7:
+					neighbor.x++;
+					neighbor.y--;
+					break;
 			}
+
 			if(NodeClosed(&neighbor)||neighbor.x<0||neighbor.y<0||neighbor.x>=w||neighbor.y>=h||map[neighbor.x+neighbor.y*w].canWalk == false)
 				continue;
 			if(!NodeOpen(&neighbor)||current->g+1<neighbor.g)
@@ -121,6 +142,18 @@ int FindPath(Tile*map, int w, int h, int ox, int oy, int tx, int ty, Path *path)
 	}
 	printf("couldnt find path\n");
 	return 0;
+}
+
+void RemovePath(Path *path)
+{
+	Path *last = NULL;
+	while(path)
+	{
+		last = path;
+		path = path->next;
+		free(last);
+		last = NULL;
+	}
 }
 
 void DrawPath(Path *path)

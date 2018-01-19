@@ -1,0 +1,8 @@
+id,name     ,targettype,TP1  ,TP2,TP3,effect1,EP1,deliverytype,DP1
+1 ,HEALSELF ,0         ,0    ,0  ,0  ,2      ,10 ,0           ,0
+2 ,DMGSELF  ,0         ,0    ,0  ,0  ,1      ,10 ,0           ,0
+3 ,DMGAREA  ,1         ,10   ,0  ,0  ,1      ,10 ,0           ,0
+4 ,HEALAREA ,1         ,10   ,0  ,0  ,2      ,10 ,0           ,0
+5 ,DMGARC   ,2         ,10   ,180,0  ,1      ,10 ,0           ,0
+6 ,DMGPROJ  ,2         ,100  ,90 ,0  ,1      ,10 ,1           ,1
+7 ,DMGAREA  ,1         ,100  ,0  ,0  ,1      ,10 ,1           ,1
